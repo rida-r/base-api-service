@@ -13,7 +13,6 @@ DB_HOST = os.getenv('POSTGRES_HOST')  # Hostname or IP
 DB_PORT = os.getenv('POSTGRES_PORT', "5432")  # Port, default to 5432 if not set
 DB_NAME = os.getenv('POSTGRES_DB')  # Database name
 
-#asdlkfj
 DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
 engine = create_engine(DATABASE_URL)

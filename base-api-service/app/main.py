@@ -1,12 +1,10 @@
 from fastapi import FastAPI
-from dotenv import load_dotenv
-import os
-
-load_dotenv()  # This loads the environment variables from a .env file
-
-# Now you can use os.getenv to read environment variables
-db_user = os.getenv("DATABASE_USER")
-db_password = os.getenv("DATABASE_PASSWORD")
-print(db_user)
+from app.controllers.balance_sheet_controller import router as balance_sheet_router
+from app.database import init_db
 
 app = FastAPI()
+app = FastAPI()
+app.include_router(balance_sheet_router)
+@app.on_event("startup")
+def on_startup():
+    init_db()

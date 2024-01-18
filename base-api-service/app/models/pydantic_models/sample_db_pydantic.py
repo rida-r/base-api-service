@@ -2,7 +2,7 @@
 from pydantic import BaseModel
 from datetime import date
 
-class BalanceSheetCreate(BaseModel):
+class SampleDBCreate(BaseModel):
     date: str
     current_assets: float
     non_current_assets: float
@@ -10,7 +10,7 @@ class BalanceSheetCreate(BaseModel):
     non_current_liabilities: float
     shareholders_equity: float
 
-class BalanceSheetResponse(BaseModel):
+class SampleDBResponse(BaseModel):
     id: int
     date: date
     current_assets: float

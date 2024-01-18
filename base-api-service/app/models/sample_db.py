@@ -1,10 +1,9 @@
-# models/balance_sheet.py
 from sqlalchemy import Column, Integer, Numeric, Date
 from sqlalchemy.ext.declarative import declarative_base
 from app.database import Base
 
-class BalanceSheet(Base):
-    __tablename__ = 'balance_sheet'
+class SampleDB(Base):
+    __tablename__ = 'sample_db'
 
     id = Column(Integer, primary_key=True)
     date = Column(Date, nullable=False)

@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.controllers.balance_sheet_controller import router as balance_sheet_router
+from app.controllers.sample_db_controller import router as balance_sheet_router
 from app.database import init_db
 
 app = FastAPI()

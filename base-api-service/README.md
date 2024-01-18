@@ -16,3 +16,24 @@ Run the app/start the container using:
 To stop the container,
     
     docker-compose down
+
+
+
+Start the Postgres DB
+    
+    brew services start postgresql
+
+Run the FastAPI backend
+
+    uvicorn app.main:app --reload
+
+Sample CURL request:
+
+    curl -X POST http://localhost:8000/sample-db/ -H 'Content-Type: application/json' -d '{
+    "date": "2024-01-16",
+    "current_assets": 100000.00,
+    "non_current_assets": 500000.00,
+    "current_liabilities": 75000.00,
+    "non_current_liabilities": 200000.00,
+    "shareholders_equity": 325000.00
+    }'

@@ -7,3 +7,9 @@ def create_db_entry(db: Session, entry_data: dict):
     db.commit()
     db.refresh(new_entry)
     return new_entry
+
+# def delete_db_entry():
+#
+# def edit_db_entry():
+#
+# def filter_db_entry():

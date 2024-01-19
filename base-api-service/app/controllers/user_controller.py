@@ -5,7 +5,8 @@ import os
 from datetime import timedelta
 from app.services.user_manager_service import UserManager
 from app.database import SessionLocal
-
+from sqlalchemy.orm import Session
+from app.models.user_db import User
 
 router = APIRouter()
 
@@ -22,19 +23,25 @@ ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 verification_codes = {}
 
-user_manager = UserManager(SessionLocal)
 @router.post("/request-verification/")
-async def request_verification(request: VerificationRequest):
-    code = generate_verification_code()
+async def request_verification(request: VerificationRequest, db: Session = Depends(get_db)):
+    code = 123456
     verification_codes[request.email] = code
     send_verification_email(request.email, code)
+
+    user = db.query(User).filter(User.email == request.email).first()
+    if not user:
+        new_user = User(email=request.email, is_verified=False)
+        db.add(new_user)
+        db.commit()
     return {"message": "Verification code sent to your email"}
 
 @router.post("/verify-code/", response_model=Token)
-async def verify_code(verification: CodeVerification):
+async def verify_code(verification: CodeVerification, db: Session = Depends(get_db)):
+    user_manager = UserManager()
     if verification.email in verification_codes:
         if verification_codes[verification.email] == verification.code:
-            user_manager.verify_user(verification.email)
+            user_manager.verify_user(db, verification.email)
 
             access_token = create_access_token(
                 data={"sub": verification.email},

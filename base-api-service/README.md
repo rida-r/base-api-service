@@ -30,10 +30,15 @@ Run the FastAPI backend
 Sample CURL request:
 
     curl -X POST http://localhost:8000/sample-db/ -H 'Content-Type: application/json' -d '{
-    "date": "2024-01-16",
+    "date": "2024-01-18",
     "current_assets": 100000.00,
     "non_current_assets": 500000.00,
     "current_liabilities": 75000.00,
     "non_current_liabilities": 200000.00,
     "shareholders_equity": 325000.00
     }'
+
+
+    curl -X POST http://127.0.0.1:8000/request-verification/ \
+    -H "Content-Type: application/json" \
+    -d '{"email": "user@example.com"}'

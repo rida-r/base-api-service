@@ -1,21 +1,21 @@
 from sqlalchemy.orm import Session
-from app.models.user_db import User  # import your User model
+from app.models.user_db import User
+from app.database import SessionLocal
 
+# user manager service to deal with users in the db
 class UserManager:
-    def __init__(self, db_session: Session):
-        self.db = db_session
 
-    def get_user_by_email(self, email: str):
-        return self.db.query(User).filter(User.email == email).first()
+    def get_user_by_email(self, db: Session, email: str):
+        return db.query(User).filter(User.email == email).first()
 
-    def create_user(self, email: str):
+    def create_user(self, db: Session, email: str):
         new_user = User(email=email)
-        self.db.add(new_user)
-        self.db.commit()
+        db.add(new_user)
+        db.commit()
         return new_user
 
-    def verify_user(self, email: str):
-        user = self.get_user_by_email(email)
+    def verify_user(self, db: Session, email: str):
+        user = self.get_user_by_email(db, email)
         if user:
             user.is_verified = True
-            self.db.commit()
+            db.commit()

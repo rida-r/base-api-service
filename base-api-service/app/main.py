@@ -1,9 +1,11 @@
 from fastapi import FastAPI
 from app.controllers.sample_db_controller import router as sample_db_controller
 from app.database import init_db
+from app.controllers.user_controller import router as user_db_controller
 
 app = FastAPI()
 app.include_router(sample_db_controller)
+app.include_router(user_db_controller)
 
 @app.on_event("startup")
 def on_startup():

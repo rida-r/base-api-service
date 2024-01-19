@@ -46,4 +46,5 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 def init_db():
     from .models.sample_db import SampleDB
+    from .models.user_db import User
     Base.metadata.create_all(bind=engine)

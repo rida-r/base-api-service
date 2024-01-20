@@ -1,8 +1,10 @@
 from fastapi import APIRouter, Depends, HTTPException, Body
 from sqlalchemy.orm import Session
-from app.services.sample_db_service import create_db_entry, delete_db_entry, update_db_entry
+from app.services.sample_db_service import create_db_entry, delete_db_entry, update_db_entry, search_db_entries
 from app.database import SessionLocal
 from app.models.pydantic_models.sample_db_pydantic import SampleDBCreate, SampleDBResponse, SampleDBUpdate
+from typing import Optional, List
+from datetime import date
 
 router = APIRouter()
 
@@ -36,3 +38,9 @@ def update_entry_endpoint(entry_id: int, updated_data: SampleDBUpdate = Body(...
         return updated_entry
     else:
         raise HTTPException(status_code=404, detail="Entry not found")
+
+
+@router.get("/search-entries/", response_model=List[SampleDBResponse])
+def search_entries_endpoint(entry_id: Optional[int] = None, entry_date: Optional[date] = None, db: Session = Depends(get_db)):
+    entries = search_db_entries(db, entry_id, entry_date)
+    return entries

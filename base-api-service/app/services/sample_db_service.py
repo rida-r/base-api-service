@@ -1,6 +1,8 @@
 from sqlalchemy.orm import Session
 from app.models.sample_db import SampleDB
 from app.models.pydantic_models.sample_db_pydantic import SampleDBUpdate, SampleDBResponse
+from typing import List, Optional
+from datetime import date
 
 def create_db_entry(db: Session, entry_data: dict):
     new_entry = SampleDB(**entry_data)
@@ -33,3 +35,10 @@ def update_db_entry(db: Session, entry_id: int, updated_data: dict) -> SampleDBR
 # def filter_db_entry():
 
 # def find_entry_id():
+def search_db_entries(db: Session, entry_id: Optional[int] = None, entry_date: Optional[date] = None) -> List[SampleDB]:
+    query = db.query(SampleDB)
+    if entry_id is not None:
+        query = query.filter(SampleDB.id == entry_id)
+    if entry_date is not None:
+        query = query.filter(SampleDB.date == entry_date)
+    return query.all()

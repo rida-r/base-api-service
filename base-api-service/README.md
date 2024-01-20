@@ -30,7 +30,7 @@ Run the FastAPI backend
 Sample CURL request:
 
     curl -X POST http://localhost:8000/sample-db/ -H 'Content-Type: application/json' -d '{
-    "date": "2024-01-18",
+    "date": "2024-02-28",
     "current_assets": 100000.00,
     "non_current_assets": 500000.00,
     "current_liabilities": 75000.00,

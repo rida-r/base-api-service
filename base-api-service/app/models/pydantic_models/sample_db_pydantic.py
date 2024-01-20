@@ -1,9 +1,10 @@
 
 from pydantic import BaseModel
 from datetime import date
+from typing import Optional
 
 class SampleDBCreate(BaseModel):
-    date: str
+    date: date
     current_assets: float
     non_current_assets: float
     current_liabilities: float
@@ -24,3 +25,11 @@ class SampleDBResponse(BaseModel):
         json_encoders = {
             date: lambda v: v.strftime("%Y-%m-%d"),
         }
+
+class SampleDBUpdate(BaseModel):
+    date: Optional[date] = None
+    current_assets: Optional[float] = None
+    non_current_assets: Optional[float] = None
+    current_liabilities: Optional[float] = None
+    non_current_liabilities: Optional[float] = None
+    shareholders_equity: Optional[float] = None

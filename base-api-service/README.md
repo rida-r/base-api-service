@@ -9,6 +9,7 @@
 
 Enter your credentials in the .env file located in the main directory.
 
+## if running with docker
 Run the app/start the container using: 
     
     docker-compose up --build
@@ -18,7 +19,7 @@ To stop the container,
     docker-compose down
 
 
-
+## if running without docker
 Start the Postgres DB
     
     brew services start postgresql
